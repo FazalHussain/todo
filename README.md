@@ -1,4 +1,4 @@
-# todo
+# Todo Flutter Application with Hive Database
 
 A new Flutter project.
 
