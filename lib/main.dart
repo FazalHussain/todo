@@ -5,11 +5,18 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:todo/screens/home_screen.dart';
 import 'package:todo/models/todo.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Directory directory = await getApplicationDocumentsDirectory();
-  Hive.init(directory.path);
+  if (kIsWeb) {
+    String path = "/assets/db";
+    Hive.init(path);
+  } else {
+    Directory directory = await getApplicationDocumentsDirectory();
+    Hive.init(directory.path);
+  }
+
   //register the adapter
   Hive.registerAdapter(TodoAdapter());
   await Hive.openBox<Todo>("todo");
